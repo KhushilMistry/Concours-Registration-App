@@ -1,0 +1,26 @@
+.adminHeading {
+  font-size : 28px;
+  text-align: center;
+}
+
+.adminSelect {
+  text-align: center;
+  select {
+    outline : none;
+  }
+}
+
+table, td, th {
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 70px;
+}
+
+th, td {
+  padding: 15px;
+}

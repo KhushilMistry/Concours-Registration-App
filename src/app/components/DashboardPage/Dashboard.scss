@@ -1,0 +1,101 @@
+.adminNavBar {
+  position : absolute;
+  top : 10px;
+  width : 100%;
+  font-size: 18px;
+  text-align: right;
+  border-bottom: 1px solid #585858;
+  padding-bottom: 10px;
+  a {
+    letter-spacing: 0.5px;
+    padding: 10px 15px;
+  }
+  a:hover {
+    cursor: pointer;
+  }
+}
+
+.event-list {
+  padding-top: 50px;
+}
+
+.userInfo {
+  margin: 15px;
+  font-weight: 600;
+  font-size: 22px;
+  color: #414141;
+}
+
+.bold {
+  font-weight: 400;
+}
+
+.event-heading {
+  font-size : 32px;
+  text-align: center;
+}
+
+table, td, th {
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 70px;
+}
+
+button {
+  padding : 5px;
+  outline : none;
+}
+
+
+th, td {
+  padding: 15px;
+}
+
+.text-align-center {
+  text-align : center;
+}
+
+.btn-success {
+  font-size: 14px;
+  color: #fff;
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+}
+
+button:hover {
+  cursor : pointer;
+}
+
+.modal-heading {
+  font-size: 22px;
+  text-align: center;
+  margin: 20px;
+}
+
+.inputCheckbox {
+  margin: 5px;
+}
+
+.checkboxLable {
+  margin: 10px;
+}
+
+.inputCheckboxContainer {
+  margin: 20px;
+}
+
+.Modal-modal-0-1-3 {
+  width: 400px;
+
+}
+
+.btn-danger {
+  color: #fff;
+  background-color: #d9534f;
+  border-color: #d43f3a;
+}
