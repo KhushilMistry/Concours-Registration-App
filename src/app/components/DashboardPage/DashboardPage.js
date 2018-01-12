@@ -8,7 +8,7 @@ import Modal from 'react-responsive-modal';
 
 import styles from './Dashboard.scss';
 import withStyles from '../../decorators/withStyles';
-import {logout, addEvent,removeEvent} from '../../../../actions/loginActions';
+import {logout, addEvent, removeEvent} from '../../../../actions/loginActions';
 import Loader from '../Loader';
 
 @withStyles(styles)
@@ -28,7 +28,11 @@ class Dashboard extends React.Component {
         },
         {
           name: 'Rhapsody',
-          option: ['Indian Solo', 'Indian Group', 'Western Solo', 'Western Group', 'Instrumental']
+          option: ['Western Solo', 'Western Group', 'Instrumental']
+        },
+        {
+          name: 'Raga',
+          option: ['Indian Solo', 'Indian Group']
         },
         {
           name: 'Masquerade',
@@ -55,15 +59,19 @@ class Dashboard extends React.Component {
           option: []
         },
         {
+          name: 'Rveveles',
+          option: ['InSight', 'Scribo Scientia']
+        },
+        {
           name: 'Showdown',
           option: []
         },
         {
-          name: 'Conceive-Synapse`18',
+          name: 'Conceive',
           option: []
         },
         {
-          name: 'Foarage',
+          name: 'Forage',
           option: []
         },
         {
@@ -73,6 +81,10 @@ class Dashboard extends React.Component {
         {
           name: 'Shailee',
           option: [' Writing Contest', 'Spelling Bee', 'Auther`s Session', 'Poetry Slam', 'Workshop', 'Literature Quiz']
+        },
+        {
+          name: 'Accomodation',
+          option: []
         }
       ],
       open: false,
@@ -122,7 +134,7 @@ class Dashboard extends React.Component {
 
   deregister = (name) => {
     let events = _.cloneDeep(this.props.events);
-    this.props.removeEvent(name,this.props.keyChild,events);
+    this.props.removeEvent(name, this.props.keyChild, events);
   }
 
 
@@ -167,16 +179,18 @@ class Dashboard extends React.Component {
                   {
                     this.state.events.map((events, index) => {
                       let bool;
-                      _.forEach(this.props.events,function(value){
-                        if(value.name === events.name){
-                            bool = true;
+                      _.forEach(this.props.events, function (value) {
+                        if (value.name === events.name) {
+                          bool = true;
                         }
                       });
                       return <tr key={index}>
                         <td>{events.name}</td>
                         <td className="text-align-center">
-                          { !bool && <button onClick={() => this.onOpenModal(index)} className="btn-success">Register</button> }
-                          { bool &&  <button onClick={() => this.deregister(events.name)} className="btn-danger">Deregister</button>}
+                          { !bool &&
+                          <button onClick={() => this.onOpenModal(index)} className="btn-success">Register</button> }
+                          { bool && <button onClick={() => this.deregister(events.name)} className="btn-danger">
+                            Deregister</button>}
                         </td>
                       </tr>
                     })
@@ -213,7 +227,7 @@ const mapStateToProps = ({ loginStates }) => {
     keyChild: loginStates.key,
     error: loginStates.error,
     loading: loginStates.loading,
-    events : loginStates.events
+    events: loginStates.events
   }
 };
 

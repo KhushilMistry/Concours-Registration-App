@@ -28,7 +28,11 @@ class Admin extends React.Component {
         },
         {
           name: 'Rhapsody',
-          option: ['Indian Solo', 'Indian Group', 'Western Solo', 'Western Group', 'Instrumental']
+          option: ['Western Solo', 'Western Group', 'Instrumental']
+        },
+        {
+          name: 'Raga',
+          option: ['Indian Solo', 'Indian Group']
         },
         {
           name: 'Masquerade',
@@ -55,15 +59,19 @@ class Admin extends React.Component {
           option: []
         },
         {
+          name: 'Rveveles',
+          option: ['InSight', 'Scribo Scientia']
+        },
+        {
           name: 'Showdown',
           option: []
         },
         {
-          name: 'Conceive-Synapse`18',
+          name: 'Conceive',
           option: []
         },
         {
-          name: 'Foarage',
+          name: 'Forage',
           option: []
         },
         {
@@ -73,6 +81,10 @@ class Admin extends React.Component {
         {
           name: 'Shailee',
           option: [' Writing Contest', 'Spelling Bee', 'Auther`s Session', 'Poetry Slam', 'Workshop', 'Literature Quiz']
+        },
+        {
+          name: 'Accomodation',
+          option: []
         }
       ],
       selectEvent: ''
