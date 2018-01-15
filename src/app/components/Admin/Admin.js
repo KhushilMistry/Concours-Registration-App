@@ -43,6 +43,10 @@ class Admin extends React.Component {
           option: ['Mini Militia', 'Clash Royale', 'Counter Strike : Global Offensive', 'Dota 2', 'Age of Empires 2', 'FIFA 15', 'Need for Speed : Most Wanted', 'Counter Strike : Global Offensive 1v1']
         },
         {
+          name: 'Rampage',
+          option: ['Solo', 'Group']
+        },
+        {
           name: 'Code Mutants',
           option: []
         },
