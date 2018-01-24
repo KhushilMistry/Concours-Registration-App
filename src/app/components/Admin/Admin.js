@@ -63,7 +63,7 @@ class Admin extends React.Component {
           option: []
         },
         {
-          name: 'Rveveles',
+          name: 'Reveles',
           option: ['InSight', 'Scribo Scientia']
         },
         {

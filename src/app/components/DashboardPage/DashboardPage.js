@@ -63,7 +63,7 @@ class Dashboard extends React.Component {
           option: []
         },
         {
-          name: 'Rveveles',
+          name: 'Reveles',
           option: ['InSight', 'Scribo Scientia']
         },
         {
@@ -85,10 +85,6 @@ class Dashboard extends React.Component {
         {
           name: 'Shailee',
           option: [' Writing Contest', 'Spelling Bee', 'Auther`s Session', 'Poetry Slam', 'Workshop', 'Literature Quiz']
-        },
-        {
-          name: 'Accomodation',
-          option: []
         },
         {
           name: 'Accomodation',
