@@ -145,7 +145,7 @@ class Admin extends React.Component {
                     let eventIndexPin;
                     let eventName = this.state.selectEvent.name;
                     _.forEach(user.Events, function (value, eventIndex) {
-                      if (value.name === eventName) {
+                      if (value && value.name === eventName) {
                         bool = true;
                         eventIndexPin = eventIndex;
                       }
@@ -160,7 +160,7 @@ class Admin extends React.Component {
                         { _.get(this.state.selectEvent.option, 0) &&
                         <td>
                           {
-                            userEvent.options.map(function (value) {
+                            userEvent.options && userEvent.options.map(function (value) {
                               return value + ' '
                             })
                           }
