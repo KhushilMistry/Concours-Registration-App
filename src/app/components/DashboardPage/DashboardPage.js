@@ -89,6 +89,10 @@ class Dashboard extends React.Component {
         {
           name: 'Accomodation',
           option: ['1 Day(Rs.800)', '2 Days(Rs.1000)', '3/4 Days(Rs.1200)']
+        },
+        {
+          name: 'INC',
+          option: []
         }
       ],
       open: false,
