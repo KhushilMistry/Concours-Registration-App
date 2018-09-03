@@ -50,11 +50,13 @@ export default function (state = INITIAL_STATE, action) {
       appState.users = action.data;
       break;
     case 'ADD_AMOUNT':
-      console.log('Here',action.data);
       appState.user.Amount = appState.user.Amount + action.data;
       break;
     case 'REMOVE_AMOUNT':
       appState.user.Amount = appState.user.Amount - action.data;
+      break;
+    case 'CHANGE_ACCOMODATION':
+      appState.user.Accomodation = action.data;
       break;
     default:
       return state;

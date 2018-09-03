@@ -8,7 +8,7 @@ import Modal from 'react-responsive-modal';
 
 import styles from './Dashboard.scss';
 import withStyles from '../../decorators/withStyles';
-import { logout, addEvent, removeEvent } from '../../../../actions/loginActions';
+import { logout, addEvent, removeEvent, updateAccomodation } from '../../../../actions/loginActions';
 import Loader from '../Loader';
 
 @withStyles(styles)
@@ -82,12 +82,20 @@ class Dashboard extends React.Component {
           name: 'Volleyball - Women',
           Fees: 1000
         }
-      ]
+      ],
+      open: false,
+      accomodation: 0
     };
   }
 
   logout = () => {
     this.props.logout();
+  };
+
+  toggleModal = () => {
+    this.setState({
+      open: !this.state.open
+    });
   };
 
   register = (name, fees) => {
@@ -96,6 +104,19 @@ class Dashboard extends React.Component {
 
   deregister = (name, fees) => {
     this.props.removeEvent(name, this.props.keyChild, this.props.events, fees);
+  }
+
+  submitAccomodation = () => {
+    this.props.updateAccomodation(this.state.accomodation, this.props.keyChild);
+    this.toggleModal();
+  }
+
+  onChangeAccomodation = (event) => {
+    if (event.target.value >= 0) {
+      this.setState({
+        accomodation: event.target.value
+      });
+    }
   }
 
   render() {
@@ -137,12 +158,18 @@ class Dashboard extends React.Component {
                   <Col>
                     <p className="userInfo">Amount to be Paid : <span className="bold">{this.props.user.Amount} Rs</span> </p>
                   </Col>
+                  <Col>
+                    <p className="userInfo">Accomodation : <span className="bold">{this.props.user.Accomodation}</span> <span>
+                      <button onClick={() => this.toggleModal()} className="btn-success change-button">Change
+                    </button>
+                    </span></p>
+                  </Col>
                 </Row>
                 <p className="event-heading">EVENTS</p>
                 <table>
                   <tr>
                     <th>Event</th>
-                    <th>Fees (in Rs.)</th>
+                    <th>Fees (in Rs)</th>
                     <th>Register</th>
                   </tr>
                   {
@@ -165,6 +192,17 @@ class Dashboard extends React.Component {
                 </table>
               </Container>
             </div>
+            <Modal open={this.state.open} onClose={this.toggleModal} className="externalModal">
+              <p className="modal-heading">Accomodation</p>
+              <div className="inputCheckboxContainer">
+                <input type="number" className="inputText"
+                  onChange={(event) => this.onChangeAccomodation(event)}
+                />
+              </div>
+              <div className="text-align-center">
+                <button className="btn-success" onClick={() => this.submitAccomodation()}>Register</button>
+              </div>
+            </Modal>
           </div>
         }
       </div>
@@ -185,5 +223,6 @@ const mapStateToProps = ({ loginStates }) => {
 export default connect(mapStateToProps, {
   logout,
   addEvent,
-  removeEvent
+  removeEvent,
+  updateAccomodation
 })(withRouter(Dashboard));

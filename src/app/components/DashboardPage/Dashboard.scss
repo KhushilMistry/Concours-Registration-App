@@ -91,11 +91,21 @@ button:hover {
 
 .Modal-modal-0-1-3 {
   width: 400px;
-
 }
 
 .btn-danger {
   color: #fff;
   background-color: #d9534f;
   border-color: #d43f3a;
+}
+
+.change-button {
+  margin: 0px 20px;
+}
+
+.inputText {
+  display: block;
+  margin: 5px auto;
+  outline: none;
+  font-size: 18px;
 }

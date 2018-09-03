@@ -34,35 +34,6 @@ const routes = {
       }
     }
 
-    /*{
-      path: '/github',
-      getComponent: (location, callback) => {
-        console.log(location,callback);
-        if (Auth.isUserAuthenticated()) {
-          callback(null, DashboardPage);
-        } else {
-          callback(null, Github);
-        }
-      }
-    },
-    {
-      path: '/signup',
-      getComponent: (location, callback) => {
-        if (Auth.isUserAuthenticated()) {
-          callback(null, DashboardPage);
-        } else {
-          callback(null, SignUpPage);
-        }
-      }
-    },
-    {
-      path: '/logout',
-      onEnter: (nextState, replace) => {
-        Auth.deauthenticateUser();
-        replace('/');
-      }
-    }*/
-
   ]
 };
 

@@ -35,6 +35,7 @@ export default {
             Number: query.number,
             College: query.college,
             Amount: 0,
+            Accomodation: 0,
             Events: []
           };
           itemsRef.set(userData);
@@ -102,6 +103,16 @@ export default {
           dispatch({ type: 'LOADING_END' });
         });
       });
+    }
+  },
+
+  updateAccomodation: (accomodationNumber, key) => {
+    return (dispatch) => {
+      dispatch({ type: 'LOADING_START' });
+      const itemsRef = firebase.database().ref().child('/Participants/').child(key).child('/Accomodation');
+      itemsRef.set(accomodationNumber);
+      dispatch({ type: 'CHANGE_ACCOMODATION', data: accomodationNumber });
+      dispatch({ type: 'LOADING_END' });
     }
   },
 
