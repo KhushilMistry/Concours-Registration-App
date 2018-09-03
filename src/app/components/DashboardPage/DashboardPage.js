@@ -1,14 +1,14 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {withRouter, Link} from 'react-router';
+import { connect } from 'react-redux';
+import { withRouter, Link } from 'react-router';
 var _ = require('lodash');
-import {Row, Col, Container} from 'react-grid-system';
+import { Row, Col, Container } from 'react-grid-system';
 import Modal from 'react-responsive-modal';
 
 
 import styles from './Dashboard.scss';
 import withStyles from '../../decorators/withStyles';
-import {logout, addEvent, removeEvent} from '../../../../actions/loginActions';
+import { logout, addEvent, removeEvent } from '../../../../actions/loginActions';
 import Loader from '../Loader';
 
 @withStyles(styles)
@@ -19,85 +19,70 @@ class Dashboard extends React.Component {
     this.state = {
       events: [
         {
-          name: 'Footloose',
-          option: ['Solo', 'Duet', 'Group']
+          name: 'Badminton - Men',
+          Fees: 1500,
         },
         {
-          name: 'Naach',
-          option: ['Solo', 'Duet/Trio', 'Group']
+          name: 'Badminton - Women',
+          Fees: 1000,
         },
         {
-          name: 'Rhapsody',
-          option: ['Western Solo', 'Western Group', 'Instrumental']
+          name: 'Basketball - Men',
+          Fees: 1500
         },
         {
-          name: 'Raga',
-          option: ['Indian Solo', 'Indian Group']
+          name: 'Basketball - Women',
+          Fees: 1000
         },
         {
-          name: 'Masquerade',
-          option: ['Naivete', 'Proscenium', 'Felicity', 'Acte Mono', 'Pehchan Kaun', 'Goofspoof']
+          name: 'Carrom',
+          Fees: 1000
         },
         {
-          name: 'Battledrome',
-          option: ['Mini Militia', 'Clash Royale', 'Counter Strike : Global Offensive', 'Dota 2', 'Age of Empires 2', 'FIFA 15', 'Need for Speed : Most Wanted', 'Counter Strike : Global Offensive 1v1']
+          name: 'Chess',
+          Fees: 1000
         },
         {
-          name: 'Rampage',
-          option: ['Solo', 'Group']
+          name: 'Cricket',
+          Fees: 3500
         },
         {
-          name: 'Code Mutants',
-          option: []
+          name: 'Football - Men',
+          Fees: 2500
         },
         {
-          name: 'Googlock Holmes',
-          option: []
+          name: 'Football - Women',
+          Fees: 1200
         },
         {
-          name: 'Crazy Math',
-          option: []
+          name: 'Kabaddi',
+          Fees: 1000
         },
         {
-          name: 'DJ Wars',
-          option: []
+          name: 'Lawn Tennis - Men',
+          Fees: 1500
         },
         {
-          name: 'Reveles',
-          option: ['InSight', 'Scribo Scientia']
+          name: 'Lawn Tennis - Women',
+          Fees: 1000
         },
         {
-          name: 'Showdown',
-          option: []
+          name: 'Table Tennis - Men',
+          Fees: 1500
         },
         {
-          name: 'Conceive',
-          option: []
+          name: 'Table Tennis - Women',
+          Fees: 1000
         },
         {
-          name: 'Forage',
-          option: []
+          name: 'Volleyball - Men',
+          Fees: 1500
         },
         {
-          name: 'Hackathon',
-          option: []
-        },
-        {
-          name: 'Shailee',
-          option: [' Writing Contest', 'Spelling Bee', 'Auther`s Session', 'Poetry Slam', 'Workshop', 'Literature Quiz']
-        },
-        {
-          name: 'Accomodation',
-          option: ['1 Day(Rs.800)', '2 Days(Rs.1000)', '3/4 Days(Rs.1200)']
-        },
-        {
-          name: 'INC',
-          option: []
+          name: 'Volleyball - Women',
+          Fees: 1000
         }
-      ],
-      open: false,
-      selectEvent: '',
-      options: []
+      ]
     };
   }
 
@@ -105,55 +90,25 @@ class Dashboard extends React.Component {
     this.props.logout();
   };
 
-  onOpenModal = (index) => {
-    let newState = this.state;
-    this.setState({
-      selectEvent: _.get(newState.events, index)
-    });
-    this.setState({ open: true });
-  };
-
-  onCloseModal = () => {
-    this.setState({
-      open: false,
-      options: [],
-      selectEvent: '',
-    });
-  };
-
-  changeOptions = (option) => {
-    let newState = this.state.options;
-    if (_.includes(newState, option)) {
-      _.pull(newState, option);
-    }
-    else {
-      newState.push(option);
-    }
-    this.setState({
-      options: newState
-    });
+  register = (name, fees) => {
+    this.props.addEvent(name, this.props.keyChild, this.props.events, fees);
   }
 
-  addEvent = () => {
-    let events = _.cloneDeep(this.props.events);
-    this.props.addEvent(this.state.selectEvent, this.state.options, this.props.keyChild, events);
-    this.onCloseModal();
+  deregister = (name, fees) => {
+    this.props.removeEvent(name, this.props.keyChild, this.props.events, fees);
   }
-
-  deregister = (name) => {
-    let events = _.cloneDeep(this.props.events);
-    this.props.removeEvent(name, this.props.keyChild, events);
-  }
-
 
   render() {
+
     if (this.props.user === '') {
       this.props.router.push('/');
     }
 
+    console.log(this.props.user.Amount);
+
     return (
       <div>
-        { this.props.loading ? <Loader /> :
+        {this.props.loading ? <Loader /> :
           <div>
             <div>
               <div className="adminNavBar">
@@ -178,27 +133,31 @@ class Dashboard extends React.Component {
                     <p className="userInfo">College : <span className="bold">{this.props.user.College}</span></p>
                   </Col>
                 </Row>
+                <Row>
+                  <Col>
+                    <p className="userInfo">Amount to be Paid : <span className="bold">{this.props.user.Amount} Rs</span> </p>
+                  </Col>
+                </Row>
                 <p className="event-heading">EVENTS</p>
                 <table>
                   <tr>
                     <th>Event</th>
+                    <th>Fees (in Rs.)</th>
                     <th>Register</th>
                   </tr>
                   {
                     this.state.events.map((events, index) => {
-                      let bool;
-                      _.forEach(this.props.events, function (value) {
-                        if (value.name === events.name) {
-                          bool = true;
-                        }
-                      });
                       return <tr key={index}>
                         <td>{events.name}</td>
+                        <td>{events.Fees}</td>
                         <td className="text-align-center">
-                          { !bool &&
-                          <button onClick={() => this.onOpenModal(index)} className="btn-success">Register</button> }
-                          { bool && <button onClick={() => this.deregister(events.name)} className="btn-danger">
-                            Deregister</button>}
+                          {!this.props.events.includes(events.name) ?
+                            <button onClick={() => this.register(events.name, events.Fees)} className="btn-success">Register
+                          </button>
+                            :
+                            <button onClick={() => this.deregister(events.name, events.Fees)} className="btn-danger">Deregister
+                          </button>
+                          }
                         </td>
                       </tr>
                     })
@@ -206,22 +165,6 @@ class Dashboard extends React.Component {
                 </table>
               </Container>
             </div>
-            <Modal open={this.state.open} onClose={this.onCloseModal} className="externalModal">
-              <p className="modal-heading">{_.get(this.state.selectEvent, 'name')}</p>
-              {
-                this.state.selectEvent !== '' && this.state.selectEvent.option.map((option, index) => {
-                  return <div className="inputCheckboxContainer" key={index}>
-                    <input id={index} type="checkbox" name={option} label={option} className="inputCheckbox"
-                      onChange={() => this.changeOptions(option)}
-                    />
-                    <label htmlFor={index} className="checkboxLable">{option}</label>
-                  </div>
-                })
-              }
-              <div className="text-align-center">
-                <button className="btn-success" onClick={() => this.addEvent()}>Register</button>
-              </div>
-            </Modal>
           </div>
         }
       </div>

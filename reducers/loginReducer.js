@@ -2,9 +2,9 @@ var _ = require('lodash');
 
 const INITIAL_STATE = {
   user: '',
-  loading : false,
-  key : '',
-  users : ''
+  loading: false,
+  key: '',
+  users: ''
 };
 
 export default function (state = INITIAL_STATE, action) {
@@ -30,6 +30,9 @@ export default function (state = INITIAL_STATE, action) {
     case 'ERROR':
       appState.error = action.error;
       break;
+    case 'ERROR_CLEAR':
+      appState.error = '';
+      break;
     case 'LOG_OUT':
       appState.user = '';
       appState.key = '';
@@ -41,20 +44,18 @@ export default function (state = INITIAL_STATE, action) {
       ];
       break;
     case 'DELETE_EVENTS':
-      let eventIndex;
-      _.forEach(appState.events, function(value,index){
-        if(value.name === action.data){
-          eventIndex = index;
-        }
-      });
-      let x = _.cloneDeep(appState.events);
-      x.splice(eventIndex, 1);
-      appState.events = x;
+      appState.events = action.data;
       break;
     case 'ADMIN_DATA':
       appState.users = action.data;
       break;
-
+    case 'ADD_AMOUNT':
+      console.log('Here',action.data);
+      appState.user.Amount = appState.user.Amount + action.data;
+      break;
+    case 'REMOVE_AMOUNT':
+      appState.user.Amount = appState.user.Amount - action.data;
+      break;
     default:
       return state;
   }

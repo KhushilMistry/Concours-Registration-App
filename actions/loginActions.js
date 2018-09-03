@@ -3,122 +3,108 @@ import firebase from '../src/firebase';
 var _ = require('lodash');
 
 export default {
+
   signIn: (query) => {
     return (dispatch) => {
-      var x = 0;
       dispatch({ type: 'LOADING_START' });
-      const itemsRef = firebase.database().ref().child('/Participants');
-
-      itemsRef.once('value', function (snapshot) {
-        snapshot.forEach(function (childSnapshot) {
-          const childData = childSnapshot.val();
-          const childKey = childSnapshot.key;
-          if (childData.Email === query.email && childData.Password === query.password) {
-            dispatch({ type: 'SIGN_IN', data: childData, key: childKey });
-            x++;
-          }
+      firebase.auth().signInWithEmailAndPassword(query.email, query.password).then((user) => {
+        const itemsRef = firebase.database().ref().child('/Participants/').child(user.uid);
+        firebase.database().ref().child('/Participants/').child(user.uid).once('value').then(function (snap) {
+          const userValue = snap.val()
+          const userKey = snap.key;
+          dispatch({ type: 'SIGN_IN', data: userValue, key: userKey });
+          dispatch({ type: 'ERROR_CLEAR' });
         });
-      }).then(() => {
-        if (x === 0) {
-          dispatch({ type: 'ERROR', error: 'Wrong Password or Email.' });
-        }
+        dispatch({ type: 'LOADING_END' });
+      }).catch(() => {
+        dispatch({ type: 'ERROR', error: 'Wrong Password or Email.' });
         dispatch({ type: 'LOADING_END' });
       });
-
     };
   },
+
   signUp: (query) => {
     return (dispatch) => {
-      var x = 0;
       dispatch({ type: 'LOADING_START' });
-      console.log(query);
-      const itemsRef = firebase.database().ref().child('/Participants');
-      itemsRef.once('value', function (snapshot) {
-        snapshot.forEach(function (childSnapshot) {
-          var childData = childSnapshot.val();
-          if (childData.Email === query.email) {
-            dispatch({ type: 'ERROR', error: 'Email Already Exists.' });
-            x++;
-          }
-        });
-      }).then(() => {
-        if (x === 0) {
-          const item = {
+      firebase.auth().createUserWithEmailAndPassword(query.email, query.password).then((user) => {
+        try {
+          const itemsRef = firebase.database().ref().child('/Participants/').child(user.uid);
+          const userData = {
             Name: query.name,
             Email: query.email,
-            Password: query.password,
             Number: query.number,
             College: query.college,
+            Amount: 0,
             Events: []
           };
-
-          itemsRef.push(item);
-          itemsRef.once('value', function (snapshot) {
-            snapshot.forEach(function (childSnapshot) {
-              const childData = childSnapshot.val();
-              const childKey = childSnapshot.key;
-              if (childData.Email === query.email) {
-                dispatch({ type: 'SIGN_UP', data: childData, key: childKey });
-              }
-            });
-          })
-
+          itemsRef.set(userData);
+          firebase.database().ref().child('/Participants/').child(user.uid).once('value').then(function (snap) {
+            const userValue = snap.val()
+            const userKey = snap.key;
+            dispatch({ type: 'SIGN_UP', data: userValue, key: userKey });
+          });
+          dispatch({ type: 'LOADING_END' });
+          dispatch({ type: 'ERROR_CLEAR' });
         }
+        catch (e) {
+          console.log(e);
+        }
+      }).catch((error) => {
+        dispatch({ type: 'ERROR', error: 'Email Already Exists.' });
         dispatch({ type: 'LOADING_END' });
       });
-
-    };
+    }
   },
+
   logout: () => {
     return (dispatch) => {
+      firebase.auth().signOut();
       dispatch({ type: 'LOADING_START' });
       dispatch({ type: 'LOG_OUT' });
       dispatch({ type: 'LOADING_END' });
+      dispatch({ type: 'ERROR_CLEAR' });
     }
   },
-  addEvent: (event, options, key, allEvent) => {
-    return (dispatch) => {
-      dispatch({ type: 'LOADING_START' });
-      const allEvents = allEvent || [];
-      const itemsRef = firebase.database().ref().child('/Participants/' + key + '/Events');
-      const item = {
-        'name': event.name,
-        'options': options
-      }
-      allEvents.push(item);
-      itemsRef.set(allEvents);
-      const itemsRefNew = firebase.database().ref().child('/Participants');
-      itemsRefNew.once('value', function (snapshot) {
-        snapshot.forEach(function (childSnapshot) {
-          const childKey = childSnapshot.key;
-          const childData = childSnapshot.val();
-          if (childKey === key) {
-            dispatch({ type: 'UPDATE_EVENTS', data: item });
-            dispatch({ type: 'LOADING_END' });
-          }
-        });
-      })
-    }
-  },
-  removeEvent: (eventName, key, allEvents) => {
-    return (dispatch) => {
-      dispatch({ type: 'LOADING_START' });
-      const itemsRef = firebase.database().ref().child('/Participants/' + key + '/Events');
-      let eventsConst = allEvents;
-      let eventIndex;
-      _.forEach(eventsConst, function (value, index) {
-        if (value.name === eventName) {
-          eventIndex = index;
-        }
-      });
-      eventsConst.splice(eventIndex, 1);
-      itemsRef.set(eventsConst).then(() => {
-        dispatch({ type: 'DELETE_EVENTS', data: eventName });
-        dispatch({ type: 'LOADING_END' });
-      });
 
+  addEvent: (eventName, key, allEvents, amount) => {
+    return (dispatch) => {
+      dispatch({ type: 'LOADING_START' });
+      const itemsRef = firebase.database().ref().child('/Participants/').child(key).child('/Events');
+      let updatedEvents = _.clone(allEvents);
+      updatedEvents.push(eventName);
+      itemsRef.set(updatedEvents);
+      const amountRef = firebase.database().ref().child('/Participants/').child(key).child('/Amount');
+      firebase.database().ref().child('/Participants/').child(key).child('/Amount').once('value').then(function (snap) {
+        const value = snap.val();
+        amountRef.set(value + amount).then(() => {
+          dispatch({ type: 'UPDATE_EVENTS', data: eventName });
+          dispatch({ type: 'ADD_AMOUNT', data: amount });
+          dispatch({ type: 'LOADING_END' });
+        });
+      });
     }
   },
+
+  removeEvent: (eventName, key, allEvents, amount) => {
+    return (dispatch) => {
+      dispatch({ type: 'LOADING_START' });
+      const itemsRef = firebase.database().ref().child('/Participants/').child(key).child('/Events');
+      let updatedEvents = _.clone(allEvents);
+      var index = updatedEvents.indexOf(eventName);
+      updatedEvents.splice(index, 1);
+      itemsRef.set(updatedEvents);
+      const amountRef = firebase.database().ref().child('/Participants/').child(key).child('/Amount');
+      firebase.database().ref().child('/Participants/').child(key).child('/Amount').once('value').then(function (snap) {
+        const value = snap.val();
+        amountRef.set(value - amount).then(() => {
+          dispatch({ type: 'DELETE_EVENTS', data: updatedEvents });
+          dispatch({ type: 'REMOVE_AMOUNT', data: amount });
+          dispatch({ type: 'LOADING_END' });
+        });
+      });
+    }
+  },
+
   getAdminData: () => {
     return (dispatch) => {
       dispatch({ type: 'LOADING_START' });

@@ -1,12 +1,12 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {withRouter, Link} from 'react-router';
+import { connect } from 'react-redux';
+import { withRouter, Link } from 'react-router';
 var _ = require('lodash');
 
 
 import styles from '../../style/common-login.scss';
 import withStyles from '../../decorators/withStyles';
-import {signUp} from '../../../../actions/loginActions';
+import { signUp } from '../../../../actions/loginActions';
 import Auth from '../../../middlewares/Auth';
 import Loader from '../Loader';
 
@@ -20,7 +20,7 @@ class SignUp extends React.Component {
       name: '',
       email: '',
       password: '',
-      college : '',
+      college: '',
       number: ''
     };
   }
@@ -60,7 +60,7 @@ class SignUp extends React.Component {
       email: this.state.email,
       password: this.state.password,
       number: this.state.number,
-      college : this.state.college
+      college: this.state.college
     }
 
     this.props.signUp(query);
@@ -69,7 +69,7 @@ class SignUp extends React.Component {
       email: '',
       password: '',
       number: '',
-      college : '',
+      college: '',
       error: ''
     });
 
@@ -83,16 +83,17 @@ class SignUp extends React.Component {
     }
     return (
       <div>
-        { this.props.loading ? <Loader /> :
+        {this.props.loading ? <Loader /> :
           <div className="login-box">
+            <img src={require("../../../../images/logo.png")} className="logo-image" />
             <p className="login-heading">Sign Up</p>
             <input className="login-input" name='name' placeholder="Name" onChange={(event) => this.changeState(event)}
               value={this.state.name}
-            /><br/>
+            /><br />
             <input className="login-input" name='email' placeholder="Email"
               onChange={(event) => this.changeState(event)}
               value={this.state.email}
-            /><br/>
+            /><br />
             <input className="login-input" name='password' placeholder="Password" type="password"
               onChange={(event) => this.changeState(event)}
               value={this.state.password}
@@ -100,11 +101,11 @@ class SignUp extends React.Component {
             <input className="login-input" name='number' placeholder="Mobile Number" type="number"
               onChange={(event) => this.changeState(event)}
               value={this.state.number}
-            /><br/>
+            /><br />
             <input className="login-input" name='college' placeholder="College Name"
               onChange={(event) => this.changeState(event)}
               value={this.state.college}
-            /><br/>
+            /><br />
             <button className="login-button" onClick={this.sign_Up}>Sign Up</button>
             {this.state.error !== '' ? <div className="error-message">{this.state.error}</div> :
               <div className="error-message">{this.props.error}</div>}

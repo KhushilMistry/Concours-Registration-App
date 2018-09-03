@@ -1,12 +1,12 @@
 import firebase from 'firebase'
 
 const config = {
-  apiKey: "AIzaSyCmQvSyCw1EuRRgRzqIDcvlD0ns1hCNQHI",
-  authDomain: "synapse2018-feb69.firebaseapp.com",
-  databaseURL: "https://synapse2018-feb69.firebaseio.com",
-  projectId: "synapse2018-feb69",
-  storageBucket: "synapse2018-feb69.appspot.com",
-  messagingSenderId: "21242449598"
+  apiKey: "AIzaSyCVyoa0h7FgjrmWDljiX4E3jmQPgMjWAyU",
+  authDomain: "experiment-c7a75.firebaseapp.com",
+  databaseURL: "https://experiment-c7a75.firebaseio.com",
+  projectId: "experiment-c7a75",
+  storageBucket: "experiment-c7a75.appspot.com",
+  messagingSenderId: "433165568080"
 };
 firebase.initializeApp(config);
 

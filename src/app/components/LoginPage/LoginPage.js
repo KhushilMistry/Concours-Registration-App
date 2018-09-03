@@ -1,12 +1,12 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {withRouter, Link} from 'react-router';
+import { connect } from 'react-redux';
+import { withRouter, Link } from 'react-router';
 var _ = require('lodash');
 
 
 import styles from '../../style/common-login.scss';
 import withStyles from '../../decorators/withStyles';
-import {signIn} from '../../../../actions/loginActions';
+import { signIn } from '../../../../actions/loginActions';
 import Loader from '../Loader';
 import firebase from '../../../firebase.js';
 
@@ -75,24 +75,25 @@ class LoginPage extends React.Component {
     }
     return (
       <div>
-        { this.props.loading ? <Loader /> :
-          <div className="login-box">
-            <p className="login-heading">Log In</p>
-            <input className="login-input" placeholder="Email" name="email"
-              onChange={(event) => this.changeState(event)}
-              value={this.state.email}
-            /><br/>
-            <input className="login-input" placeholder="Password" name="password" type="password"
-              onChange={(event) => this.changeState(event)}
-              value={this.state.password}
-            /><br />
-            <button className="login-button" onClick={this.sign_In}>Log in</button>
-            {
-              this.state.error !== '' ? <div className="error-message">{this.state.error}</div> :
-                <div className="error-message">{this.props.error}</div>
-            }
-            <p className="login-text">Already Signed In ? <Link className="login-link" to="/signup">Sign Up</Link></p>
-          </div>
+        {this.props.loading ? <Loader /> :
+            <div className="login-box">
+              <img src={require("../../../../images/logo.png")} className="logo-image" />
+              <p className="login-heading">Log In</p>
+              <input className="login-input" placeholder="Email" name="email"
+                onChange={(event) => this.changeState(event)}
+                value={this.state.email}
+              /><br />
+              <input className="login-input" placeholder="Password" name="password" type="password"
+                onChange={(event) => this.changeState(event)}
+                value={this.state.password}
+              /><br />
+              <button className="login-button" onClick={this.sign_In}>Log in</button>
+              {
+                this.state.error !== '' ? <div className="error-message">{this.state.error}</div> :
+                  <div className="error-message">{this.props.error}</div>
+              }
+              <p className="login-text">Already Signed In ? <Link className="login-link" to="/signup">Sign Up</Link></p>
+            </div>
         }
       </div>
     );
