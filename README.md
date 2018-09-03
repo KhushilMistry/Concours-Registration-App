@@ -1,4 +1,4 @@
-<h1>Synapse'18 Registration App</h1>
+<h1>Concours'18 Registration App</h1>
 Run the Server by following steps : <br>
 1. Go to the source folder<br>
 2. Do npm install<br>
