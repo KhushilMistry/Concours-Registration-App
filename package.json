@@ -53,6 +53,7 @@
     "redux-immutable-state-invariant": "^2.1.0",
     "redux-localstorage": "^0.4.1",
     "redux-logger": "^2.8.1",
+    "redux-persist": "^5.10.0",
     "redux-thunk": "^2.2.0",
     "request": "^2.83.0",
     "sass-loader": "^6.0.3",
