@@ -1,4 +1,3 @@
-import loginUtils from '../src/utils/loginUtils';
 import firebase from '../src/firebase';
 var _ = require('lodash');
 

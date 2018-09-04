@@ -9,12 +9,15 @@ import styles from './Admin.scss';
 import withStyles from '../../decorators/withStyles';
 import { getAdminData } from '../../../../actions/loginActions';
 import Loader from '../Loader';
+import { events } from '../../../utils/constantUtils';
 
 @withStyles(styles)
 class Admin extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      selectEvent: ''
+    };
   }
 
   componentDidMount() {
@@ -23,6 +26,11 @@ class Admin extends React.Component {
     }
   }
 
+  changeEvent = (event) => {
+    this.setState({
+      selectEvent: event.target.value
+    });
+  }
 
   render() {
     return (
@@ -30,6 +38,16 @@ class Admin extends React.Component {
         {this.props.loading ? <Loader /> :
           <div>
             <p className='adminHeading'>EVENT REGISTRATIONS</p>
+            <p className="adminSelect"> Select Event : <select name="event"
+              onChange={(event) => this.changeEvent(event)}
+              value={this.state.selectEvent}>
+              <option value="">All Events</option>
+              {
+                events.map((value, key) => {
+                  return <option key={key} value={value.name}>{value.name}</option>
+                })
+              }
+            </select></p>
             <Container>
               <table>
                 <tr>
@@ -43,19 +61,21 @@ class Admin extends React.Component {
                 </tr>
                 {
                   _.map(this.props.users, ((user, index) => {
-                    let events = "";
-                    _.forEach(user.Events, function (value) {
-                      events = events + value + ", ";
-                    });
-                    return <tr key={index}>
-                      <td>{user.Name}</td>
-                      <td>{user.College}</td>
-                      <td>{user.Number}</td>
-                      <td>{user.Email}</td>
-                      <td>{user.Accomodation}</td>
-                      <td>{events}</td>
-                      <td>{user.Amount}</td>
-                    </tr>
+                    if (this.state.selectEvent === '' || user.Events.indexOf(this.state.selectEvent) > -1) {
+                      let events = "";
+                      _.forEach(user.Events, function (value) {
+                        events = events + value + ", ";
+                      });
+                      return <tr key={index}>
+                        <td>{user.Name}</td>
+                        <td>{user.College}</td>
+                        <td>{user.Number}</td>
+                        <td>{user.Email}</td>
+                        <td>{user.Accomodation}</td>
+                        <td>{events}</td>
+                        <td>{user.Amount}</td>
+                      </tr>
+                    }
                   }))
                 }
               </table>

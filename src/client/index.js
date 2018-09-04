@@ -14,12 +14,11 @@ let initialState = {};
 
 const store = configureStore(initialState, browserHistory);
 let persistor = persistStore(store);
-const history = syncHistoryWithStore(browserHistory, store);
 
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <Router history={history} routes={routes} />
+      <Router history={browserHistory} routes={routes} />
     </PersistGate>
   </Provider>,
   document.getElementById('app')

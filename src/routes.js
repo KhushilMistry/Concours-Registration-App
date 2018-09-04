@@ -33,7 +33,6 @@ const routes = {
         callback(null, Admin);
       }
     }
-
   ]
 };
 

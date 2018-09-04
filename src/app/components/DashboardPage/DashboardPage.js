@@ -9,6 +9,7 @@ import Modal from 'react-responsive-modal';
 import styles from './Dashboard.scss';
 import withStyles from '../../decorators/withStyles';
 import { logout, addEvent, removeEvent, updateAccomodation } from '../../../../actions/loginActions';
+import { events } from '../../../utils/constantUtils';
 import Loader from '../Loader';
 
 @withStyles(styles)
@@ -17,72 +18,6 @@ class Dashboard extends React.Component {
     super(props);
 
     this.state = {
-      events: [
-        {
-          name: 'Badminton - Men',
-          Fees: 1500,
-        },
-        {
-          name: 'Badminton - Women',
-          Fees: 1000,
-        },
-        {
-          name: 'Basketball - Men',
-          Fees: 1500
-        },
-        {
-          name: 'Basketball - Women',
-          Fees: 1000
-        },
-        {
-          name: 'Carrom',
-          Fees: 1000
-        },
-        {
-          name: 'Chess',
-          Fees: 1000
-        },
-        {
-          name: 'Cricket',
-          Fees: 3500
-        },
-        {
-          name: 'Football - Men',
-          Fees: 2500
-        },
-        {
-          name: 'Football - Women',
-          Fees: 1200
-        },
-        {
-          name: 'Kabaddi',
-          Fees: 1000
-        },
-        {
-          name: 'Lawn Tennis - Men',
-          Fees: 1500
-        },
-        {
-          name: 'Lawn Tennis - Women',
-          Fees: 1000
-        },
-        {
-          name: 'Table Tennis - Men',
-          Fees: 1500
-        },
-        {
-          name: 'Table Tennis - Women',
-          Fees: 1000
-        },
-        {
-          name: 'Volleyball - Men',
-          Fees: 1500
-        },
-        {
-          name: 'Volleyball - Women',
-          Fees: 1000
-        }
-      ],
       open: false,
       accomodation: 0
     };
@@ -173,7 +108,7 @@ class Dashboard extends React.Component {
                     <th>Register</th>
                   </tr>
                   {
-                    this.state.events.map((events, index) => {
+                    events.map((events, index) => {
                       return <tr key={index}>
                         <td>{events.name}</td>
                         <td>{events.Fees}</td>
