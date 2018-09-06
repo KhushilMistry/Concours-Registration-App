@@ -1,5 +1,6 @@
 import firebase from '../src/firebase';
 var _ = require('lodash');
+var axios = require('axios');
 
 export default {
 
@@ -130,6 +131,42 @@ export default {
         dispatch({ type: 'ADMIN_DATA', data: arr });
         dispatch({ type: 'LOADING_END' });
       });
+    }
+  },
+
+  sendEmailConfirmation: (emailID, regEvents, userName, events, accomodation) => {
+    return (dispatch) => {
+
+      var eventsText = "";
+      var totalAmount = 0;
+      _.forEach(regEvents, function(value){
+        _.forEach(events, function(eventValue){
+          if(eventValue.name === value){
+            console.log(eventValue);
+            totalAmount = totalAmount + eventValue.Fees;
+            eventsText = eventsText + eventValue.name + " "+ eventValue.Fees + " Rs.\n";   
+          }
+        });
+      });
+
+      eventsText = eventsText + "Total Amount to be Paid : " + totalAmount + " Rs.\n";
+      eventsText = eventsText + "Accomodation Required for : " + accomodation + " Persons\n\n";
+
+      var query = {
+        text: "Dear " + userName +",\n\nThank you for registering for Concours'18. Your registration has been received, Thanks! Following are your registration details :\n\n" + eventsText + "Team Concours'18\ndaiictconcours@gmail.com | + 91 88665 26650",
+        email: emailID
+      }
+
+      dispatch({ type: 'LOADING_START' });
+      axios({
+        method: 'post',
+        url: 'https://mail-send-app.herokuapp.com/mail-confirmation',
+        params: query,
+        headers: { "Access-Control-Allow-Origin": "https://mail-send-app.herokuapp.com/" }
+      }).then((res) => {
+        dispatch({ type: 'LOADING_END' });
+      });
+
     }
   }
 };

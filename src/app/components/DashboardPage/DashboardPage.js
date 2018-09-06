@@ -8,7 +8,7 @@ import Modal from 'react-responsive-modal';
 
 import styles from './Dashboard.scss';
 import withStyles from '../../decorators/withStyles';
-import { logout, addEvent, removeEvent, updateAccomodation } from '../../../../actions/loginActions';
+import { logout, addEvent, removeEvent, updateAccomodation, sendEmailConfirmation } from '../../../../actions/loginActions';
 import { events } from '../../../utils/constantUtils';
 import Loader from '../Loader';
 
@@ -19,6 +19,7 @@ class Dashboard extends React.Component {
 
     this.state = {
       open: false,
+      openConfirm: false,
       accomodation: 0
     };
   }
@@ -54,13 +55,22 @@ class Dashboard extends React.Component {
     }
   }
 
+  toggleModalConfirm = () => {
+    this.setState({
+      openConfirm: !this.state.openConfirm
+    });
+  };
+
+  sendConfirmationMail = () => {
+    this.toggleModalConfirm();
+    this.props.sendEmailConfirmation(this.props.user.Email, this.props.events, this.props.user.Name, events, this.props.user.Accomodation);
+  }
+
   render() {
 
     if (this.props.user === '') {
       this.props.router.push('/');
     }
-
-    console.log(this.props.user.Amount);
 
     return (
       <div>
@@ -125,7 +135,19 @@ class Dashboard extends React.Component {
                     })
                   }
                 </table>
+                <p className="event-heading">RULES</p>
+                <ul className="rules-list">
+                  <li>The registration of all events of your college must be done at one time. Multiple entries from one college will not be accepted.</li>
+                  <li>Once the team list is submitted at the time of registration, no changes will be allowed.</li>
+                  <li>Right of any changes is given to the organizing committee.</li>
+                  <li>All colleges must provide ID cards for each player. The teams must produce these documents prior to their matches and whenever called upon. For the ID card to be genuine,then that should be approved by the college authorities via an official signed letter with photo ID proof for the particular participant. In case the person has a photocopy of his/her ID card, it must be duly attested by the Dean of the college.Also, you need to bring latest fee receipt which will be generated as soon as you register.</li>
+                  <li>Without the payment of the registration fee your entry will not be considered.</li>
+                  <li>You will be contacted later for accomodation regarding its fees.</li>
+                  <li className="red">You have to confirm your registration by clicking on following button. Without that your entry will not be considered. You will receive an email containing your registration details. You have to show that at the time of reporting.</li>
+                </ul>
               </Container>
+              <button onClick={() => { this.sendConfirmationMail() }} className="btn-success confirm-button">Confirm
+              </button>
             </div>
             <Modal open={this.state.open} onClose={this.toggleModal} className="externalModal">
               <p className="modal-heading">Accomodation</p>
@@ -136,6 +158,12 @@ class Dashboard extends React.Component {
               </div>
               <div className="text-align-center">
                 <button className="btn-success" onClick={() => this.submitAccomodation()}>Register</button>
+              </div>
+            </Modal>
+            <Modal open={this.state.openConfirm} onClose={this.toggleModalConfirm} className="externalModal">
+              <p className="modal-heading">Confirmation mail has been sent.</p>
+              <div className="text-align-center">
+                <button className="btn-success" onClick={() => this.toggleModalConfirm()}>Done</button>
               </div>
             </Modal>
           </div>
@@ -159,5 +187,6 @@ export default connect(mapStateToProps, {
   logout,
   addEvent,
   removeEvent,
-  updateAccomodation
+  updateAccomodation,
+  sendEmailConfirmation
 })(withRouter(Dashboard));
