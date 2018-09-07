@@ -16,12 +16,6 @@ app.use(compression());
 
 app.use(express.static('./dist'));
 
-app.get('*.js', function (req, res, next) {
-  req.url = req.url + '.gz';
-  res.set('Content-Encoding', 'gzip');
-  next();
-});
-
 app.use('/', function (req, res) {
   res.sendFile(path.resolve('client/index.html'));
 });

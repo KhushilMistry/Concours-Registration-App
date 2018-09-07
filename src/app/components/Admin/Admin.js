@@ -47,7 +47,10 @@ class Admin extends React.Component {
                   return <option key={key} value={value.name}>{value.name}</option>
                 })
               }
-            </select></p>
+            </select>
+
+              <button onClick={() => this.props.getAdminData()} className="reload-button">Reload</button>
+            </p>
             <Container>
               <table>
                 <tr>
