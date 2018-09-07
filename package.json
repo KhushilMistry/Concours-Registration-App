@@ -27,6 +27,7 @@
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-0": "6.3.13",
     "bootstrap": "^3.3.7",
+    "compression": "^1.7.3",
     "cors": "^2.8.4",
     "css-loader": "^0.28.0",
     "express": "^4.13.4",
@@ -47,6 +48,7 @@
     "react-responsive-modal": "^2.0.0",
     "react-router": "^3.0.0",
     "react-router-redux": "^4.0.8",
+    "react-scripts": "^1.1.5",
     "react-tap-event-plugin": "^2.0.0",
     "reactstrap": "^4.8.0",
     "redux": "^3.6.0",
@@ -64,6 +66,7 @@
   },
   "devDependencies": {
     "babel-plugin-transform-class-properties": "^6.22.0",
+    "compression-webpack-plugin": "^2.0.0",
     "file-loader": "^1.1.6",
     "image-webpack-loader": "^3.4.2",
     "img-loader": "^2.0.0",

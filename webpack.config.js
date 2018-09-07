@@ -1,5 +1,4 @@
 var webpack = require('webpack');
-var path = require('path');
 var argv = require('minimist')(process.argv.slice(2));
 
 var DEBUG = !argv.release;
@@ -31,6 +30,14 @@ module.exports = {
     publicPath: '/'
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+      }
+    }),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.optimize.AggressiveMergingPlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
@@ -44,9 +51,9 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test   : /\.scss$/,
+        test: /\.scss$/,
         exclude: /node_modules/,
-        loader : `${STYLE_LOADER}!${CSS_LOADER}!${AUTOPREFIXER_LOADER}!sass-loader`
+        loader: `${STYLE_LOADER}!${CSS_LOADER}!${AUTOPREFIXER_LOADER}!sass-loader`
       },
       {
         test: /\.css$/,
