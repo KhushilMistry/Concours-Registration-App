@@ -2,67 +2,67 @@ export default {
     events : [
         {
             name: 'Badminton - Men',
-            Fees: 1500,
+            Fees: 1600,
         },
         {
             name: 'Badminton - Women',
-            Fees: 1000,
+            Fees: 1100,
         },
         {
             name: 'Basketball - Men',
-            Fees: 1500
+            Fees: 1600
         },
         {
             name: 'Basketball - Women',
-            Fees: 1000
+            Fees: 1100
         },
         {
             name: 'Carrom',
-            Fees: 1000
+            Fees: 1100
         },
         {
             name: 'Chess',
-            Fees: 1000
+            Fees: 1100
         },
         {
             name: 'Cricket',
-            Fees: 3500
+            Fees: 3600
         },
         {
             name: 'Football - Men',
-            Fees: 2500
+            Fees: 2600
         },
         {
             name: 'Football - Women',
-            Fees: 1200
+            Fees: 1300
         },
         {
             name: 'Kabaddi',
-            Fees: 1000
+            Fees: 1100
         },
         {
             name: 'Lawn Tennis - Men',
-            Fees: 1500
+            Fees: 1600
         },
         {
             name: 'Lawn Tennis - Women',
-            Fees: 1000
+            Fees: 1100
         },
         {
             name: 'Table Tennis - Men',
-            Fees: 1500
+            Fees: 1600
         },
         {
             name: 'Table Tennis - Women',
-            Fees: 1000
+            Fees: 1100
         },
         {
             name: 'Volleyball - Men',
-            Fees: 1500
+            Fees: 1600
         },
         {
             name: 'Volleyball - Women',
-            Fees: 1000
+            Fees: 1100
         }
     ]
 };
