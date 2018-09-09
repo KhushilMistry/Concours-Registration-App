@@ -153,7 +153,7 @@ export default {
       eventsText = eventsText + "Accomodation Required for : " + accomodation + " Persons\n\n";
 
       var query = {
-        text: "Dear " + userName +",\n\nThank you for registering for Concours'18. Your registration has been received, Thanks! Following are your registration details :\n\n" + eventsText + "Team Concours'18\ndaiictconcours@gmail.com | + 91 88665 26650",
+        text: "Dear " + userName +",\n\nThank you for registering for Concours 2018. Your registration has been received, Thanks! Following are your registration details :\n\n" + eventsText + "Regards,\nSports Committee | DA-IICT\n+91 7434-980219‬ | ‭+91 88665 26650",
         email: emailID
       }
 

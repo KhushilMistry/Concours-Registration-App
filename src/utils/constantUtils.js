@@ -37,10 +37,6 @@ export default {
             Fees: 1300
         },
         {
-            name: 'Kabaddi',
-            Fees: 1100
-        },
-        {
             name: 'Lawn Tennis - Men',
             Fees: 1600
         },
