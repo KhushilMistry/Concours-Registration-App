@@ -121,7 +121,7 @@ class Dashboard extends React.Component {
                     events.map((events, index) => {
                       return <tr key={index}>
                         <td>{events.name}</td>
-                        <td>{events.Fees}</td>
+                        <td>{events.Fees === 0 ? 'TBA' : events.Fees}</td>
                         <td className="text-align-center">
                           {!this.props.events.includes(events.name) ?
                             <button onClick={() => this.register(events.name, events.Fees)} className="btn-success">Register

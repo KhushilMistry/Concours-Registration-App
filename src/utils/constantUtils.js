@@ -59,6 +59,10 @@ export default {
         {
             name: 'Volleyball - Women',
             Fees: 1100
+        },
+        {
+            name: 'Youth Run (Marathon)',
+            Fees: 0
         }
     ]
 };
