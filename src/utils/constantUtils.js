@@ -26,7 +26,7 @@ export default {
         },
         {
             name: 'Cricket',
-            Fees: 3600
+            Fees: 4000
         },
         {
             name: 'Football - Men',
@@ -62,7 +62,7 @@ export default {
         },
         {
             name: 'Youth Run (Marathon)',
-            Fees: 0
+            Fees: 100
         }
     ]
 };

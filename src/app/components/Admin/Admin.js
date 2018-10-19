@@ -33,6 +33,8 @@ class Admin extends React.Component {
   }
 
   render() {
+
+    let i = 0;
     return (
       <div>
         {this.props.loading ? <Loader /> :
@@ -54,6 +56,7 @@ class Admin extends React.Component {
             <Container>
               <table>
                 <tr>
+                  <th>No.</th>
                   <th>Name</th>
                   <th>College</th>
                   <th>Contact No.</th>
@@ -64,12 +67,14 @@ class Admin extends React.Component {
                 </tr>
                 {
                   _.map(this.props.users, ((user, index) => {
-                    if (this.state.selectEvent === '' || user.Events.indexOf(this.state.selectEvent) > -1) {
+                    if (this.state.selectEvent === '' || (user.Events && user.Events.indexOf(this.state.selectEvent)) > -1) {
+                      i++;
                       let events = "";
                       _.forEach(user.Events, function (value) {
                         events = events + value + ", ";
                       });
                       return <tr key={index}>
+                        <td>{i}</td>
                         <td>{user.Name}</td>
                         <td>{user.College}</td>
                         <td>{user.Number}</td>
